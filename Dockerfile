@@ -14,5 +14,7 @@ RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM gcr.io/distroless/java17-debian11
 COPY --from=build /usr/src/app/target/stg-discord-bot-0.1.jar /usr/app/stg-discord-bot-0.1.jar
+COPY application.properties /usr/app/
+
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/app/stg-discord-bot-0.1.jar"]

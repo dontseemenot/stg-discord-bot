@@ -9,6 +9,7 @@ env:
   IMAGE_NAME: ${{ github.actor }}/stg-discord-bot:latest
 
 jobs:
+
   publish:
     name: publish image
     runs-on: ubuntu-latest
@@ -18,6 +19,11 @@ jobs:
     - name: Login
       run:
         echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Add secrets
+      run:
+        echo ${{ secrets.BOT_TOKEN }} > application.properties
+
     - name: Build and Publish
       run: |
         docker build . --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}

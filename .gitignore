@@ -40,3 +40,5 @@ build/
 ## custom
 .config
 application.properties
+.idea/dbnavigator.xml
+opt/

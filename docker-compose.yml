@@ -1,0 +1,6 @@
+services:
+  app:
+    container_name: app
+    image: ghcr.io/dontseemenot/stg-discord-bot:latest
+    ports:
+      - 3000:3000

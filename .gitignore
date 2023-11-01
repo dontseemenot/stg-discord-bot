@@ -42,3 +42,4 @@ build/
 application.properties
 .idea/dbnavigator.xml
 opt/
+.idea/

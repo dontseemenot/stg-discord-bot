@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertiesHandler {
-    public static Properties GetProperties() {
+    private final Properties properties;
+    public PropertiesHandler() {
         Properties properties = new Properties();
         try {
             FileInputStream fileInputStream = new FileInputStream("/usr/app/application.properties");
@@ -18,6 +19,10 @@ public class PropertiesHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return properties;
+        this.properties = properties;
+    }
+
+    public String GetProperty(String value) {
+        return this.properties.getProperty(value);
     }
 }

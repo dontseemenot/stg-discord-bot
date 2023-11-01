@@ -4,13 +4,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
-import java.util.Properties;
 
-public class ChatGPTAPI {
+public class ChatGPTHandler {
 
     private final String token;
-    public ChatGPTAPI(String chatGPTToken) {
-        token = chatGPTToken;
+    public ChatGPTHandler(PropertiesHandler propertiesHandler) {
+
+        this.token = propertiesHandler.GetProperty("CHATGPT_APIKEY");
     }
     public String sendPrompt(String prompt) {
         String url = "https://api.openai.com/v1/chat/completions";

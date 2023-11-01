@@ -12,14 +12,25 @@ import java.util.Properties;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+
 public class Main {
     public static void main(String[] args) throws LoginException {
-        Properties properties = PropertiesHandler.GetProperties();
-        String botToken = properties.getProperty("BOT_TOKEN");
+        // Setup and inject dependencies
+        PropertiesHandler propertiesHandler = new PropertiesHandler();
+        DBHandler dbHandler = new DBHandler(propertiesHandler);
+        ChatGPTHandler chatGPTHandler = new ChatGPTHandler(propertiesHandler);
 
-        JDA bot = JDABuilder.createDefault(botToken)
-                .setActivity(Activity.playing("with your mum"))
-                .addEventListeners(new BotListeners())
+        BobuxHandler bobuxHandler = new BobuxHandler(dbHandler);
+        BotListeners botListeners = new BotListeners(
+                propertiesHandler,
+                dbHandler,
+                chatGPTHandler,
+                bobuxHandler
+        );
+
+        JDA bot = JDABuilder.createDefault(propertiesHandler.GetProperty("BOT_TOKEN"))
+                .setActivity(Activity.playing(Constants.SetActivity))
+                .addEventListeners(botListeners)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
 
@@ -28,8 +39,12 @@ public class Main {
                 Commands.slash("say", "Bot will repeat the message")
                         .addOption(OptionType.STRING, "message", "Message to repeat", true),
                 Commands.slash("gpt", "Send a prompt to ChatGPT")
-                        .addOption(OptionType.STRING, "message", "ChatGPT prompt", true)
+                        .addOption(OptionType.STRING, "message", "ChatGPT prompt", true),
+                Commands.slash(Constants.CmdWork, Constants.CmdWorkDesc)
         ).queue();
     }
+
+
+
 
 }

@@ -21,7 +21,7 @@ jobs:
         echo ${{ secrets.PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Add secrets
-      run: echo ${{ secrets.BOT_TOKEN }} > application.properties
+      run: echo ${{ secrets.APPLICATION_PROPERTIES }} > application.properties
 
     - name: Build and Publish
       run: |

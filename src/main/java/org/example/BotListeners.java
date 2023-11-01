@@ -1,19 +1,21 @@
 package org.example;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Properties;
 
 public class BotListeners extends ListenerAdapter {
 
-    private ChatGPTAPI chatGPTAPI;
-    public BotListeners() {
-        Properties properties = PropertiesHandler.GetProperties();
-        String chatGPTApiKey = properties.getProperty("CHATGPT_APIKEY");
-        chatGPTAPI = new ChatGPTAPI(chatGPTApiKey);
+    private PropertiesHandler propertiesHandler;
+    private DBHandler dbHandler;
+    private ChatGPTHandler chatGPTHandler;
+    private BobuxHandler bobuxHandler;
+
+    public BotListeners(PropertiesHandler propertiesHandler, DBHandler dbHandler, ChatGPTHandler chatGPTHandler, BobuxHandler bobuxHandler) {
+        this.propertiesHandler = propertiesHandler;
+        this.dbHandler = dbHandler;
+        this.chatGPTHandler = chatGPTHandler;
+        this.bobuxHandler = bobuxHandler;
+
         System.out.println("Botlisteners setup");
     }
     @Override
@@ -36,6 +38,12 @@ public class BotListeners extends ListenerAdapter {
 //                event.getChannel().sendMessage(response).queue();
                 event.getChannel().sendMessage("Sorry, this feature is still in development.").queue();
                 break;
+            case "work":
+                String username = event.getUser().getName();
+                String response = bobuxHandler.Work(username);
+                event.reply(response).queue();
+                break;
+
             default:
                 event.getChannel().sendMessage("Commands:\n/ping\n/say <message>").queue();
                 break;

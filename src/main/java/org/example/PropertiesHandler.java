@@ -8,7 +8,9 @@ public class PropertiesHandler {
     public PropertiesHandler() {
         Properties properties = new Properties();
         try {
-            FileInputStream fileInputStream = new FileInputStream("/usr/app/application.properties");
+            FileInputStream fileInputStream = new FileInputStream
+                    ("/usr/app/application.properties");
+                    //("application.properties");
             properties.load(fileInputStream);
             fileInputStream.close();
 

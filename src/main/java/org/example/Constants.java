@@ -6,4 +6,6 @@ public class Constants {
 
     public static String CmdWork = "work";
     public static String CmdWorkDesc = "Earn bobux";
+    public static String CmdLeaderboard = "leaderboard";
+    public static String CmdLeaderboardDesc = "See bobux leaderboard";
 }

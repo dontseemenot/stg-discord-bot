@@ -40,7 +40,8 @@ public class Main {
                         .addOption(OptionType.STRING, "message", "Message to repeat", true),
                 Commands.slash("gpt", "Send a prompt to ChatGPT")
                         .addOption(OptionType.STRING, "message", "ChatGPT prompt", true),
-                Commands.slash(Constants.CmdWork, Constants.CmdWorkDesc)
+                Commands.slash(Constants.CmdWork, Constants.CmdWorkDesc),
+                Commands.slash(Constants.CmdLeaderboard, Constants.CmdLeaderboardDesc)
         ).queue();
     }
 

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.math.BigInteger;
+import java.util.List;
 import java.util.Random;
 
 public class BobuxHandler {
@@ -11,13 +13,20 @@ public class BobuxHandler {
         this.rand = new Random();
     }
 
-    public String Work(String username) {
-        StringBuilder sb = new StringBuilder();
-        int n = rand.nextInt(100);
-        sb.append(username);
-        sb.append(" worked and earned $");
-        sb.append(n);
-        sb.append(" bobux!");
-        return sb.toString();
+    public String Work(String strDiscordID, String username) {
+        Long longDiscordID = Long.parseLong(strDiscordID);
+        int amount = rand.nextInt(100);
+        BobuxAccount acc = new BobuxAccount(longDiscordID, username);
+        if (!dbHandler.UpdateEntryBobuxAccounts(acc, amount)) {
+            return "There was an error in executing the /work command";
+        }
+        return String.format("%1$s earned %2$d bobux!", username, amount);
     }
+    public BobuxAccountLeaderboard Leaderboard() {
+        List<BobuxAccount> bobuxAccounts = dbHandler.GetTableBobuxAccounts();
+        BobuxAccountLeaderboard leaderboard = new BobuxAccountLeaderboard(bobuxAccounts);
+        return leaderboard;
+    }
+
+
 }

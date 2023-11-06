@@ -32,6 +32,7 @@ public class Main {
                 .setActivity(Activity.playing(Constants.SetActivity))
                 .addEventListeners(botListeners)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
+                .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();
 
         bot.updateCommands().addCommands(
@@ -41,6 +42,8 @@ public class Main {
                 Commands.slash("gpt", "Send a prompt to ChatGPT")
                         .addOption(OptionType.STRING, "message", "ChatGPT prompt", true),
                 Commands.slash(Constants.CmdWork, Constants.CmdWorkDesc),
+                Commands.slash(Constants.CmdSteal, Constants.CmdStealDesc)
+                        .addOption(OptionType.STRING, "username", "Discord username of the user you want to steal from", true),
                 Commands.slash(Constants.CmdLeaderboard, Constants.CmdLeaderboardDesc)
         ).queue();
     }

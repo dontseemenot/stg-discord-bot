@@ -96,11 +96,6 @@ public class DBHandler {
         return true;
     }
     public boolean UpdateEntryBobuxAccounts(BobuxAccount acc, int amount) {
-        // Check if user exists, if not then add
-        if (!CheckIfExistsBobuxAccounts(acc)) {
-            System.out.println("Entry with discord id + " + acc.DiscordID + "did not exist, adding now.");
-            AddEntryBobuxAccounts(acc);
-        }
         try {
             Connection conn = CreateConnection();
             String SQL = "UPDATE bobux_accounts SET amount = amount + ? WHERE discord_id = ?";
@@ -115,6 +110,24 @@ public class DBHandler {
             return false;
         }
         return true;
+    }
+
+    public int GetAmountRobuxAccounts(BobuxAccount acc) {
+        int amount = 0;
+        try {
+            Connection conn = CreateConnection();
+            String SQL = "SELECT amount FROM bobux_accounts where discord_id = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setLong(1, acc.DiscordID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                amount = rs.getInt("amount");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in retrieving amount: " + e.getMessage());
+            return amount;
+        }
+        return amount;
     }
 
     public List<BobuxAccount> GetTableBobuxAccounts() {

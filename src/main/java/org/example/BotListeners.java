@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class BotListeners extends ListenerAdapter {
 
@@ -43,6 +44,7 @@ public class BotListeners extends ListenerAdapter {
                 event.getChannel().sendMessage("Sorry, this feature is still in development.").queue();
                 break;
             case "work":
+
                 String username = event.getUser().getName();
                 String discordID = event.getUser().getId();
                 String response = bobuxHandler.Work(discordID,username);
@@ -54,10 +56,14 @@ public class BotListeners extends ListenerAdapter {
                 EmbedBuilder embed = new EmbedBuilder();
                 embed.setTitle("Bobux Leaderboard");
                 embed.setColor(Color.GREEN);
-                for(BobuxAccount acc : leaderboard.BobuxAccountList) {
-                    embed.addField("User", acc.Username, true);
-                    embed.addField("Bobux", Integer.toString(acc.Amount), true);
+                StringBuilder colUser = new StringBuilder();
+                StringBuilder colBobux = new StringBuilder();
+                for (BobuxAccount acc : leaderboard.BobuxAccountList) {
+                    colUser.append(acc.Username).append("\n");
+                    colBobux.append(acc.Amount).append("\n");
                 }
+                embed.addField("Username", colUser.toString(), true);
+                embed.addField(Constants.EmojiDollarBanknote + " Bobux", colBobux.toString(), true);
 
                 event.getHook().sendMessageEmbeds(embed.build()).queue();
                 break;
@@ -66,24 +72,5 @@ public class BotListeners extends ListenerAdapter {
                 break;
         }
     }
-//    @Override
-//    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-//        if (!event.getAuthor().isBot()) {
-//            String messageSent = event.getMessage().getContentRaw().toLowerCase();
-//            if (messageSent.startsWith("/ ")) {
-//                if (messageSent.equals("/ping")) {
-//                    event.getChannel().sendMessage("Pong!").queue();
-//                } else if (messageSent.startsWith("/say ")) {
-//                    String repeatMessage = messageSent.substring(5);
-//                    event.getChannel().sendMessage(repeatMessage).queue();
-//                }
-//                else {
-//                    event.getChannel().sendMessage("Commands:\n/ping\n/say <message>").queue();
-//                }
-//
-//            }
-//        }
-//
-//    }
 
 }

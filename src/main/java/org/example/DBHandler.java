@@ -27,6 +27,7 @@ public class DBHandler {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, username, password);
+            conn = DriverManager.getConnection("jdbc:postgresql://db:5432/MYDB2", username, password);
             return conn;
         } catch (SQLException e) {
             System.out.println("Error in connecting to DB: " + e.getMessage());

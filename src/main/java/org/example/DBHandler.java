@@ -15,7 +15,6 @@ public class DBHandler {
         this.password = propertiesHandler.GetProperty("DB_PASSWORD");
 
         try {
-            //Connect();
             CreateTable();
             System.out.println("Database setup successfully");
         } catch (Exception e) {
@@ -26,8 +25,7 @@ public class DBHandler {
     public Connection CreateConnection() {
         Connection conn = null;
         try {
-            //conn = DriverManager.getConnection(url, username, password);
-            conn = DriverManager.getConnection("jdbc:postgresql://db:5432/MYDB2", username, password);
+            conn = DriverManager.getConnection(url, username, password);
             return conn;
         } catch (SQLException e) {
             System.out.println("Error in connecting to DB: " + e.getMessage());

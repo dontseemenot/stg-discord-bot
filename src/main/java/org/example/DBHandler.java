@@ -27,10 +27,12 @@ public class DBHandler {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, username, password);
+            return conn;
         } catch (SQLException e) {
             System.out.println("Error in connecting to DB: " + e.getMessage());
         }
         return conn;
+
     }
 
     public void CloseConnection(Connection conn) {

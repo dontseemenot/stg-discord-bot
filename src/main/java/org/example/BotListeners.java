@@ -53,7 +53,7 @@ public class BotListeners extends ListenerAdapter {
                 String username = event.getUser().getName();
                 String discordID = event.getUser().getId();
                 String response = bobuxHandler.Work(discordID,username);
-                event.getChannel().sendMessage(response).queue();
+                event.reply(response).queue();
                 break;
             case "steal":
                 try {

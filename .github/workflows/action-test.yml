@@ -24,7 +24,7 @@ jobs:
       - name: Add secrets
         run: |
           echo ${{ secrets.APPLICATION_PROPERTIES_TEST }} > application.properties
-          echo $ENV_VARS_TEST >> application.properties
+          echo ${{ vars.ENV_VARS_TEST }} >> application.properties
 
       - name: Build and Publish
         run: |

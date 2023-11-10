@@ -24,6 +24,7 @@ jobs:
       run: |
         echo ${{ secrets.APPLICATION_PROPERTIES_PROD }} > application.properties
         echo $ENV_VARS_PROD >> application.properties
+        echo ${{ secrets.DB_PASSWORD }} > db_password.txt
 
     - name: Build and Publish
       run: |

@@ -5,7 +5,7 @@ services:
     container_name: backend_app_test
     image: ghcr.io/dontseemenot/stg-discord-bot:test
     ports:
-      - 3000:3000
+      - 3001:3001
     #    environment:
     #      db-url: jdbc:postgresql://db:5432/MYDB2
     #      db-username: admin2
@@ -20,7 +20,7 @@ services:
     container_name: postgresql_container_test
     image: postgres:16.0
     ports:
-      - 5432:5432
+      - 5433:5433
     environment:
       POSTGRES_DB: DBTEST
       POSTGRES_USER: admin2

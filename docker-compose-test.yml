@@ -3,13 +3,14 @@ services:
   backend:
     #build: .
     container_name: backend_app
-    image: ghcr.io/dontseemenot/stg-discord-bot:latest
+    image: ghcr.io/dontseemenot/stg-discord-bot:test
     ports:
       - 3000:3000
-    environment:
-      db-url: jdbc:postgresql://db:5432/MYDB2
-      db-username: admin2
-      db-password: admin2
+    #    environment:
+    #      db-url: jdbc:postgresql://db:5432/MYDB2
+    #      db-username: admin2
+    #      db-password_FILE: /run/secrets/db_password
+
     depends_on:
       - db
     restart: always
@@ -21,12 +22,18 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: MYDB2
+      POSTGRES_DB: DBTEST
       POSTGRES_USER: admin2
-      POSTGRES_PASSWORD: admin2
+      POSTGRES_PASSWORD: /run/secrets/db_password
+    secrets:
+      - db_password
     volumes:
       - 'data:/var/lib/postgresql/data'
     restart: always
 
 volumes:
   data:
+
+secrets:
+  db_password:
+    file: db_password.txt

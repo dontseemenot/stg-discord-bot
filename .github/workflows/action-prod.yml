@@ -2,7 +2,7 @@ name: publish
 
 on:
   push:
-    branches: ["main", "dev"]
+    branches: ["main"]
 
 env:
   REGISTRY: ghcr.io
@@ -22,11 +22,8 @@ jobs:
 
     - name: Add secrets
       run: |
-        echo ${{ secrets.BOT_TOKEN }} > application.properties
-        echo ${{ secrets.CHATGPT_APIKEY }} >> application.properties
-        echo ${{ secrets.DB_URL }} >> application.properties
-        echo ${{ secrets.DB_USERNAME }} >> application.properties
-        echo ${{ secrets.DB_PASSWORD }} >> application.properties
+        echo ${{ secrets.APPLICATION_PROPERTIES_PROD }} > application.properties
+        echo $ENV_VARS_PROD >> application.properties
 
     - name: Build and Publish
       run: |
@@ -45,6 +42,6 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && sudo docker compose pull && sudo docker compose up -d && exit"
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && sudo docker compose pull && sudo docker compose -f docker-compose-prod up -d && exit"
     - name: cleanup
       run: rm -rf ~/.ssh

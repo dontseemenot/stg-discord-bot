@@ -40,6 +40,9 @@ build/
 ## custom
 .config
 application.properties
+application-test.properties
+application-prod.properties
 .idea/dbnavigator.xml
 opt/
 .idea/
+db_password.txt

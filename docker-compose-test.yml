@@ -6,10 +6,6 @@ services:
     image: ghcr.io/dontseemenot/stg-discord-bot:test
     ports:
       - 3001:3000
-    #    environment:
-    #      db-url: jdbc:postgresql://db:5432/MYDB2
-    #      db-username: admin2
-    #      db-password_FILE: /run/secrets/db_password
 
     depends_on:
       - db
@@ -24,8 +20,7 @@ services:
     environment:
       POSTGRES_DB: DBTEST
       POSTGRES_USER: admin2
-      #POSTGRES_PASSWORD_FILE: /run/secrets/db_password
-      POSTGRES_PASSWORD: admin2
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
     secrets:
       - db_password
     volumes:

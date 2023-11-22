@@ -48,7 +48,7 @@ jobs:
 
       - name: connect and pull
         run: |
-          scp -i ${{ secrets.SSH_PRIVATE_KEY }} docker-compose-test.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/projects/stg-discord-bot
+          scp -i ~/.ssh/id_rsa docker-compose-test.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/projects/stg-discord-bot
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             cd ${{ secrets.WORK_DIR }} && 
             sudo docker compose -f docker-compose-test.yml -p stg-test pull && 

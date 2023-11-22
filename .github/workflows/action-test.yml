@@ -44,7 +44,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/id_rsa
           chmod 644 ~/.ssh/known_hosts
-          echo ${{ secrets.DB_PASSWORD }} > db_password.txt
 
       # Clone the repo into the runner
       - name: Checkout Repository
@@ -53,12 +52,10 @@ jobs:
       # Copy files into server
       - name: connect and pull
         run: |
-          ls -lah
-          cat ./db_password.txt
           scp -i ~/.ssh/id_rsa ${GITHUB_WORKSPACE}/docker-compose-test.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/projects/stg-discord-bot
-          scp -i ~/.ssh/id_rsa db_password.txt ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/projects/stg-discord-bot
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             cd ${{ secrets.WORK_DIR }} && 
+            echo ${{ secrets.DB_PASSWORD }} > db_password.txt && 
             sudo docker compose -f docker-compose-test.yml -p stg-test pull && 
             sudo docker compose -f docker-compose-test.yml -p stg-test up -d && 
             exit

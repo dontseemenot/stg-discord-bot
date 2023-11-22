@@ -23,7 +23,7 @@ jobs:
 
       - name: Add secrets
         run: |
-          echo "${{ secrets.APPLICATION_PROPERTIES_TEST }}" > application.properties
+          echo -e "${{ secrets.APPLICATION_PROPERTIES_TEST }}" > application.properties
 
 
       - name: Build and Publish
@@ -48,6 +48,7 @@ jobs:
 
       - name: connect and pull
         run: |
+          echo "Repository root: ${{ github.workspace }}"
           scp -i ~/.ssh/id_rsa ${GITHUB_WORKSPACE}/docker-compose-test.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/projects/stg-discord-bot
           ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
             cd ${{ secrets.WORK_DIR }} && 

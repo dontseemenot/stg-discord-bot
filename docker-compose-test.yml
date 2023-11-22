@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_DB: DBTEST
       POSTGRES_USER: admin2
-      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      #POSTGRES_PASSWORD_FILE: /run/secrets/db_password
       POSTGRES_PASSWORD: admin2
     secrets:
       - db_password

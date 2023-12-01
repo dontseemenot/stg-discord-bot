@@ -1,7 +1,6 @@
 services:
   # Discord bot
   backend:
-    #build: .
     container_name: backend_app_test
     image: ghcr.io/dontseemenot/stg-discord-bot:test
     ports:

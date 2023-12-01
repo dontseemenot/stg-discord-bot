@@ -15,7 +15,7 @@ services:
     container_name: postgresql_container_prod
     image: postgres:16.0
     ports:
-      - 5433:5432
+      - 5432:5432
     environment:
       POSTGRES_DB: MYDB2
       POSTGRES_USER: admin2
